@@ -1,12 +1,10 @@
 package com.powsikan.TextDetector_Backend.pictures;
 
 
+import com.powsikan.TextDetector_Backend.users.User;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -19,6 +17,9 @@ public class Picture {
     private  String name;
     private  String imageUrl;
     private  String detected_text;
+
+    @ManyToOne
+    private User user;
 
     public Picture(){}
 }

@@ -15,7 +15,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/all")
+    @GetMapping()
     public List<User> getAll() {
         return userService.getAll();
     }
@@ -26,7 +26,7 @@ public class UserController {
 
     }
 
-@PostMapping("/add")
+@PostMapping()
 @ResponseBody
     public Object addUser(@RequestBody User user) {
        return userService.addUser(user);

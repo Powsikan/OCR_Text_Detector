@@ -28,7 +28,7 @@ public class PictureService {
 // }
 
   public  void uploadFile(MultipartFile file) throws IOException {
-     file.transferTo(new File("uploads"+file.getOriginalFilename()));
+     file.transferTo(new File("../uploads/"));
 
   }
 }
