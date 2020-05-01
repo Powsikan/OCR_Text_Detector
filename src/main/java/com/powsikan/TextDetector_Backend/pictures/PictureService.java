@@ -84,7 +84,7 @@ public class PictureService {
 
 
     public static File convert(MultipartFile file) throws IOException {
-        File convFile = new File(file.getOriginalFilename());
+        File convFile = new File("uploads/", file.getOriginalFilename());
         convFile.createNewFile();
         FileOutputStream fos = new FileOutputStream(convFile);
         fos.write(file.getBytes());

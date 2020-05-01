@@ -1,5 +1,6 @@
 package com.powsikan.TextDetector_Backend.users;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -18,6 +19,5 @@ public class User {
     public User() {
 
     }
-
 
 }
