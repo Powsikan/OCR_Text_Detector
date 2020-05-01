@@ -10,33 +10,34 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
+@RequestMapping("/users")
 public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/users")
+    @GetMapping("/all")
     public List<User> getAll() {
         return userService.getAll();
     }
 
-    @RequestMapping("/users/{username}")
+    @GetMapping("/{username}")
     public Optional<User> getUser(@PathVariable String username) {
         return userService.getUser(username);
 
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/users")
-    @ResponseBody
+@PostMapping("/add")
+@ResponseBody
     public Object addUser(@RequestBody User user) {
        return userService.addUser(user);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/users/{username}")
+    @PutMapping("/{username}")
     public void updateUser( @PathVariable String username,   @RequestBody User user) {
         userService.updateUser(user);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/users/{username}")
+    @DeleteMapping("/{username}")
     public void deleteUser(@PathVariable String username) {
         userService.deleteUser(username);
 
