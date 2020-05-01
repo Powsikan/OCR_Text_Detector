@@ -3,6 +3,8 @@ package com.powsikan.TextDetector_Backend.pictures;
 
 import com.powsikan.TextDetector_Backend.users.User;
 import com.powsikan.TextDetector_Backend.users.UserRepository;
+import lombok.SneakyThrows;
+import net.sourceforge.tess4j.Tesseract;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -40,27 +42,34 @@ public class PictureService {
 //     return pictureRepository.findById(id);
 // }
 
-  public ResponseEntity uploadFile(MultipartFile file,String username) throws IOException {
-          String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-          Path path = Paths.get("uploads/"+ fileName);
-          try {
-              Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-          } catch (IOException e) {
-              e.printStackTrace();
-          }
-          String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                  .path("uploads/")
-                  .path(fileName)
-                  .toUriString();
-      Picture picture = new Picture();
-      picture.setName(fileName);
-      picture.setImageUrl(fileDownloadUri);
-      User user = userRepository.findByUsername(username);
+    @SneakyThrows
+    public ResponseEntity uploadFile(MultipartFile file, String username) throws IOException {
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        Path path = Paths.get("uploads/" + fileName);
+        try {
+            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("uploads/")
+                .path(fileName)
+                .toUriString();
 
-      picture.setUser(user);
-      pictureRepository.save(picture);
 
-      return ResponseEntity.ok(fileDownloadUri);
-      }
-  }
+        Tesseract tesseract = new Tesseract();
+        String text = tesseract.doOCR((File) file);
+
+        Picture picture = new Picture();
+        picture.setName(fileName);
+        picture.setImageUrl(fileDownloadUri);
+        User user = userRepository.findByUsername(username);
+
+        picture.setUser(user);
+        picture.setDetected_text(text);
+        pictureRepository.save(picture);
+
+        return ResponseEntity.ok(fileDownloadUri);
+    }
+}
 
