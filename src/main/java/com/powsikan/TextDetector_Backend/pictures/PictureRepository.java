@@ -5,9 +5,9 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface PictureRepository extends JpaRepository<Picture,Integer> {
-  @Query(value = "SELECT p.*  FROM picture p WHERE user_username =:username", nativeQuery = true)
-List<Picture> findPictureByUsername(String username);
+public interface PictureRepository extends JpaRepository<Picture, Integer> {
+    @Query(value = "SELECT p.*  FROM picture p WHERE user_username =:username", nativeQuery = true)
+    List<Picture> findPictureByUsername(String username);
 
 
 }

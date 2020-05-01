@@ -11,20 +11,20 @@ import java.util.Optional;
 @Service
 public class UserService {
     @Autowired
-    private  UserRepository userRepository;
+    private UserRepository userRepository;
 
     public List<User> getAll() {
         return userRepository.findAll();
     }
 
-    public Optional<User> getUser(String username){
+    public Optional<User> getUser(String username) {
         return userRepository.findById(username);
     }
 
-    public Object addUser(User user){
-        if (!userRepository.existsById(user.getUsername())){
+    public Object addUser(User user) {
+        if (!userRepository.existsById(user.getUsername())) {
             return userRepository.save(user);
-        }else{
+        } else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }

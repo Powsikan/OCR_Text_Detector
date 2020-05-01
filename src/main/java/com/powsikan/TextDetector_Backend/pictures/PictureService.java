@@ -31,20 +31,20 @@ public class PictureService {
     private PictureRepository pictureRepository;
 
 
- public List<Picture> getImages(){
-    List<Picture> list =new ArrayList<>();
-  for (Picture picture : pictureRepository.findAll()) {
-       list.add(picture);
-   }
-    return list;
- }
+    public List<Picture> getImages() {
+        List<Picture> list = new ArrayList<>();
+        for (Picture picture : pictureRepository.findAll()) {
+            list.add(picture);
+        }
+        return list;
+    }
 
- public Optional<Picture> getImage( Integer id){
-     return pictureRepository.findById(id);
- }
+    public Optional<Picture> getImage(Integer id) {
+        return pictureRepository.findById(id);
+    }
 
     public List<Picture> getImagesByUsername(String username) {
-        List<Picture> list =new ArrayList<>();
+        List<Picture> list = new ArrayList<>();
         for (Picture picture : pictureRepository.findPictureByUsername(username)) {
             list.add(picture);
         }
@@ -65,9 +65,9 @@ public class PictureService {
                 .path(fileName)
                 .toUriString();
 
-       File convFile = convert(file);
+        File convFile = convert(file);
         Tesseract tesseract = new Tesseract();
-        tesseract.setDatapath( "/usr/share/tesseract-ocr/4.00/tessdata/");
+        tesseract.setDatapath("/usr/share/tesseract-ocr/4.00/tessdata/");
         String text = tesseract.doOCR(convFile);
 
         Picture picture = new Picture();
@@ -85,7 +85,7 @@ public class PictureService {
 
     public static File convert(MultipartFile file) throws IOException {
         File convFile = new File(file.getOriginalFilename());
-       convFile.createNewFile();
+        convFile.createNewFile();
         FileOutputStream fos = new FileOutputStream(convFile);
         fos.write(file.getBytes());
         fos.close();

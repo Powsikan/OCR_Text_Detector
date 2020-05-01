@@ -17,24 +17,23 @@ public class PictureController {
     private PictureService pictureService;
 
 
-
     @GetMapping()
-    public List<Picture> getImages(){
+    public List<Picture> getImages() {
         return pictureService.getImages();
     }
 
     @GetMapping("/{username}/all")
-    public List<Picture> getImagesByUsername(@PathVariable String username){
+    public List<Picture> getImagesByUsername(@PathVariable String username) {
         return pictureService.getImagesByUsername(username);
     }
 
     @GetMapping("/{id}")
-    public Optional<Picture> getImage(@PathVariable Integer id){
+    public Optional<Picture> getImage(@PathVariable Integer id) {
         return pictureService.getImage(id);
     }
 
     @PostMapping("/{username}")
-    public ResponseEntity uploadFile(@RequestParam("file")MultipartFile file ,@PathVariable String username) throws IOException {
-      return   pictureService.uploadFile(file,username);
+    public ResponseEntity uploadFile(@RequestParam("file") MultipartFile file, @PathVariable String username) throws IOException {
+        return pictureService.uploadFile(file, username);
     }
 }

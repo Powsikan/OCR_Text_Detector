@@ -14,12 +14,13 @@ public class Picture {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private  String name;
-    private  String imageUrl;
-    private  String detected_text;
+    private String name;
+    private String imageUrl;
+    private String detected_text;
 
     @ManyToOne
     private User user;
 
-    public Picture(){}
+    public Picture() {
+    }
 }

@@ -26,14 +26,14 @@ public class UserController {
 
     }
 
-@PostMapping()
-@ResponseBody
+    @PostMapping()
+    @ResponseBody
     public Object addUser(@RequestBody User user) {
-       return userService.addUser(user);
+        return userService.addUser(user);
     }
 
     @PutMapping("/{username}")
-    public void updateUser( @PathVariable String username,   @RequestBody User user) {
+    public void updateUser(@PathVariable String username, @RequestBody User user) {
         userService.updateUser(user);
     }
 
