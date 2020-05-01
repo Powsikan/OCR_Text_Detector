@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -56,9 +58,10 @@ public class PictureService {
                 .path(fileName)
                 .toUriString();
 
-
+        File convFile = convert(file);
         Tesseract tesseract = new Tesseract();
-        String text = tesseract.doOCR((File) file);
+        tesseract.setDatapath( "/usr/share/tesseract-ocr/4.00/tessdata/");
+        String text = tesseract.doOCR(convFile);
 
         Picture picture = new Picture();
         picture.setName(fileName);
@@ -70,6 +73,16 @@ public class PictureService {
         pictureRepository.save(picture);
 
         return ResponseEntity.ok(fileDownloadUri);
+    }
+
+
+    public static File convert(MultipartFile file) throws IOException {
+        File convFile = new File(file.getOriginalFilename());
+        convFile.createNewFile();
+        FileOutputStream fos = new FileOutputStream(convFile);
+        fos.write(file.getBytes());
+        fos.close();
+        return convFile;
     }
 }
 
