@@ -2,7 +2,6 @@ package com.powsikan.TextDetector_Backend.pictures;
 
 
 import lombok.SneakyThrows;
-import lombok.extern.flogger.Flogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
