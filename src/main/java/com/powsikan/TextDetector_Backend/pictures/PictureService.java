@@ -6,6 +6,8 @@ import com.powsikan.TextDetector_Backend.users.UserRepository;
 import lombok.SneakyThrows;
 import net.sourceforge.tess4j.Tesseract;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,6 +28,9 @@ import java.util.Optional;
 
 @Service
 public class PictureService {
+   private Path fileStorageLocation = Paths.get("uploads")
+            .toAbsolutePath().normalize();
+
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -90,6 +96,20 @@ public class PictureService {
         fos.write(file.getBytes());
         fos.close();
         return convFile;
+    }
+
+    public Resource loadFileAsResource(String fileName) throws Exception {
+        try {
+            Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
+            Resource resource = new UrlResource(filePath.toUri());
+            if (resource.exists()) {
+                return resource;
+            } else {
+                throw new Exception("File not found " + fileName);
+            }
+        } catch (MalformedURLException ex) {
+            throw new Exception("File not found " + fileName, ex);
+        }
     }
 
 
