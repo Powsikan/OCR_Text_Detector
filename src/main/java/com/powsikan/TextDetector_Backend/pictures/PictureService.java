@@ -57,6 +57,10 @@ public class PictureService {
         return list;
     }
 
+    public void deletePicture(Integer id) {
+        pictureRepository.deleteById(id);
+    }
+
     @SneakyThrows
     public ResponseEntity uploadFile(MultipartFile file, String username) throws IOException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -111,6 +115,7 @@ public class PictureService {
             throw new Exception("File not found " + fileName, ex);
         }
     }
+
 
 
 }

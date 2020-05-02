@@ -47,7 +47,6 @@ public class PictureController {
 
         Resource resource = pictureService.loadFileAsResource(filename);
         // Try to determine file's content type
-        // Try to determine file's content type
         String contentType = null;
         try {
             contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
@@ -70,5 +69,10 @@ public class PictureController {
     @PostMapping("picture/{username}")
     public ResponseEntity uploadFile(@RequestParam("file") MultipartFile file, @PathVariable String username) throws IOException {
         return pictureService.uploadFile(file, username);
+    }
+
+    @DeleteMapping("picture/delete/{id}")
+    public void delete(@PathVariable Integer id){
+       pictureService.deletePicture(id);
     }
 }
