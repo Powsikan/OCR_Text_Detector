@@ -23,7 +23,6 @@ public class UserController {
     @GetMapping("/{username}")
     public Optional<User> getUser(@PathVariable String username) {
         return userService.getUser(username);
-
     }
 
     @PostMapping()
@@ -35,7 +34,7 @@ public class UserController {
     @PutMapping()
     public Object updateUser(@RequestBody User user) {
 
-      return  userService.updateUser(user);
+        return userService.updateUser(user);
     }
 
     @DeleteMapping("/{username}")

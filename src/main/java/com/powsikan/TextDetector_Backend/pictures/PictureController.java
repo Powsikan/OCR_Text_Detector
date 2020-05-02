@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+
 import org.slf4j.Logger;
 
 @RestController
@@ -51,7 +52,7 @@ public class PictureController {
         try {
             contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
         } catch (IOException ex) {
-             logger.info("Could not determine file type.");
+            logger.info("Could not determine file type.");
         }
 
         // Fallback to the default content type if type could not be determined
@@ -72,7 +73,7 @@ public class PictureController {
     }
 
     @DeleteMapping("picture/delete/{id}")
-    public void delete(@PathVariable Integer id){
-       pictureService.deletePicture(id);
+    public void delete(@PathVariable Integer id) {
+        pictureService.deletePicture(id);
     }
 }

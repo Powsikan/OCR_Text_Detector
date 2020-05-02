@@ -9,7 +9,4 @@ import java.util.Optional;
 public interface PictureRepository extends JpaRepository<Picture, Integer> {
     @Query(value = "SELECT p.*  FROM picture p WHERE user_username =:username", nativeQuery = true)
     List<Picture> findPictureByUsername(String username);
-
-
-//    List<Picture> findByName(String filename);
 }

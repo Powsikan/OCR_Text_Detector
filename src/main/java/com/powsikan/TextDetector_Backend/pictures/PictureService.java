@@ -28,7 +28,7 @@ import java.util.Optional;
 
 @Service
 public class PictureService {
-   private Path fileStorageLocation = Paths.get("uploads")
+    private Path fileStorageLocation = Paths.get("uploads")
             .toAbsolutePath().normalize();
 
     @Autowired
@@ -115,7 +115,6 @@ public class PictureService {
             throw new Exception("File not found " + fileName, ex);
         }
     }
-
 
 
 }
