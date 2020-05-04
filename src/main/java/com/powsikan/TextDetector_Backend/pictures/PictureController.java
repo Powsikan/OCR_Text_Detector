@@ -18,6 +18,7 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping()
 public class PictureController {
