@@ -44,4 +44,10 @@ public class UserController {
 
     }
 
+    @PostMapping("/login")
+    @ResponseBody
+    public ResponseEntity validateUser(@RequestBody User user){
+        return userService.validateUser(user);
+    }
+
 }

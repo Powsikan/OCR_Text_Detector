@@ -1,5 +1,6 @@
 package com.powsikan.TextDetector_Backend.users;
 
+import jdk.net.SocketFlow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,5 +38,18 @@ public class UserService {
 
     public void deleteUser(String username) {
         userRepository.deleteById(username);
+    }
+
+    public ResponseEntity validateUser(User user) {
+        User user1 = userRepository.findByUsername(user.getUsername());
+        if (user1 != null) {
+            if (user1.getPassword() == user.getPassword()) {
+                return new ResponseEntity("user valid", HttpStatus.OK);
+            } else {
+                return new ResponseEntity("password not valid", HttpStatus.BAD_REQUEST);
+            }
+        } else {
+            return new ResponseEntity("user not found", HttpStatus.NOT_FOUND);
+        }
     }
 }
