@@ -43,7 +43,7 @@ public class UserService {
     public ResponseEntity validateUser(User user) {
         User user1 = userRepository.findByUsername(user.getUsername());
         if (user1 != null) {
-            if (user1.getPassword() == user.getPassword()) {
+            if (user1.getPassword().equals(user.getPassword()) ) {
                 return new ResponseEntity("user valid", HttpStatus.OK);
             } else {
                 return new ResponseEntity("password not valid", HttpStatus.BAD_REQUEST);
